@@ -11,10 +11,6 @@ namespace RandomBuffsMod
         FFLib ff = new FFLib();
         public override void PostUpdateWorld()
         {
-
-            //randomly decide if it should use a modded buff
-            RBMGlobalBuffs.useModdedBuff = rand.Next(2) == 0 ? true : false;
-
             //loop through each player in the world
             foreach (Player player in Main.player)
             {
@@ -24,21 +20,11 @@ namespace RandomBuffsMod
                     //set the duration of the buff to be one minute
                     int duration = ff.TimeToTick(0, 1);
 
-                    if (RBMGlobalBuffs.useModdedBuff)
-                    {
-                        //set a random buff ID
-                        RBMGlobalBuffs.randomBuffID = BuffID.Count + rand.Next(1, BuffLoader.BuffCount - BuffID.Count);
+                    //set a random buff ID
+                    RBMGlobalBuffs.randomBuffID = rand.Next(1, BuffLoader.BuffCount +1);
 
-                        //apply the buff for one minute 
-                        player.AddBuff(RBMGlobalBuffs.randomBuffID, duration, false);
-                    } else
-                    {
-                        //set a random buff ID
-                        RBMGlobalBuffs.randomBuffID = rand.Next(1, BuffID.Count);
-
-                        //apply the buff for one minute 
-                        player.AddBuff(RBMGlobalBuffs.randomBuffID, duration, false);
-                    }
+                    //apply the buff for one minute 
+                    player.AddBuff(RBMGlobalBuffs.randomBuffID, duration, false);
                 }
             }
 

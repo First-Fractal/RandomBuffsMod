@@ -1,0 +1,3 @@
+displayName = Random (De)buffs Mod
+author = First Fractal
+version = 0.1

@@ -4,5 +4,6 @@ namespace RandomBuffsMod
 {
 	public class RandomBuffsMod : Mod
 	{
+
 	}
 }

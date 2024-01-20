@@ -7,14 +7,15 @@ namespace RandomBuffsMod
 {
     internal class RBMSystem : ModSystem
     {
-        //define the utilities classes
-        static Random rand = new Random();
+        //define the utilities class
         static FFLib ff = new FFLib();
 
         //variables to keep track of the cooldown
-        //static int cooldownMax = ff.TimeToTick(0, 1);
         public static int cooldownMax = ff.TimeToTick(5, 0);
         public static int cooldown = 0;
+
+        //global variable to track what buff was given by RNG 
+        public int randomBuffID = 0;
 
         public override void PostUpdateWorld()
         {
@@ -22,24 +23,34 @@ namespace RandomBuffsMod
             if (cooldown > 0)
             {
                 cooldown -= 1;
-                Console.WriteLine(cooldown);
+                //Console.WriteLine(cooldown);
             } else
             {
                 //set a random buff ID
-                RBMGlobalBuffs.randomBuffID = rand.Next(1, BuffLoader.BuffCount);
+                randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
 
                 //reset the timer
                 cooldown = cooldownMax;
             }
 
-            //loop through each player in the world
-            foreach (Player player in Main.player)
+            //check if the player is in singleplayer, or in multiplayer
+            if (Main.netMode != NetmodeID.SinglePlayer)
             {
-                //check if the player is active, not dead
-                if (!player.dead && player.active)
+                //if the player is in multiplayer, then tell the player that its time for a random buff and what it is
+                ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                packet.Write(randomBuffID);
+                packet.Send();
+            } else
+            {
+                //loop through each player in the world
+                foreach (Player player in Main.player)
                 {
-                    //apply the buff for one minute 
-                    player.AddBuff(RBMGlobalBuffs.randomBuffID, 2, false);
+                    //check if the player is active, not dead
+                    if (!player.dead && player.active)
+                    {
+                        //give the singleplayer the buff
+                        player.AddBuff(randomBuffID, 2, false);
+                    }
                 }
             }
 

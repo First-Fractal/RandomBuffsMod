@@ -12,17 +12,19 @@ namespace RandomBuffsMod
         //function that will convert human time to terraria ticks
         public int TimeToTick(int secs = 0, int mins = 0, int hours = 0, int days = 0)
         {
+            //define the units
             int sec = 60;
             int min = sec * 60;
             int hour = min * 60;
             int day = hours * 24;
+
+            //multiply the units and combine the final time
             return (sec * secs) + (min * mins) + (hour * hours) + (day * days);
         }
 
         //list of all the boss parts
         public int[] BossParts = { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail, NPCID.Creeper, NPCID.SkeletronHand, NPCID.SkeletronHead, NPCID.WallofFleshEye, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, NPCID.Probe, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, NPCID.PlanterasHook, NPCID.PlanterasTentacle, NPCID.GolemFistLeft, NPCID.GolemFistRight, NPCID.GolemHead, NPCID.GolemHeadFree, NPCID.CultistBossClone, NPCID.MoonLordCore, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye, NPCID.MoonLordLeechBlob };
 
-        //function for spiting messages to the chat
         public void Talk(string message, Color color)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)

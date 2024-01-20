@@ -9,6 +9,11 @@ namespace RandomBuffsMod
         //global variable to track what buff was given by RNG 
         public static int randomBuffID = 0;
 
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+        }
+
         //function that will remove all buffs that wasnt provided by RNG
         public override void Update(int type, Player player, ref int buffIndex)
         {

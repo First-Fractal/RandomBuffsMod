@@ -16,18 +16,10 @@ namespace RandomBuffsMod
         //function that will remove all buffs that wasnt provided by RNG
         public override void Update(int type, Player player, ref int buffIndex)
         {
-            //send the current buff to the players
-            if (Main.netMode == NetmodeID.Server)
+            //if the current buff not the player buff, then remove it
+            if (type != player.GetModPlayer<RBMPlayer>().randomBuffID)
             {
-                player.GetModPlayer<RBMPlayer>().randomBuffID = RBMSystem.randomBuffID;
-            }
-            else
-            {
-                //if the current buff not the player buff, then remvoe it
-                if (type != player.GetModPlayer<RBMPlayer>().randomBuffID)
-                {
-                    player.ClearBuff(type);
-                }
+                player.ClearBuff(type);
             }
 
             //do vanilla functions

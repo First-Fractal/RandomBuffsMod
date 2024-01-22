@@ -49,8 +49,10 @@ namespace RandomBuffsMod
                     randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
                     Console.WriteLine(randomBuffID.ToString());
 
+                    //get each player in the server
                     foreach (Player plr in Main.player)
                     {
+                        //send the current random buff id to the current player
                         ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
                         packet.Write(randomBuffID);
                         packet.Send();

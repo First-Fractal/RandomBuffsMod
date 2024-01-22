@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace RandomBuffsMod
 {
-    internal class BFMSystem : ModSystem
+    internal class RBMSystem : ModSystem
     {
         //my libary class
         static FFLib ff = new FFLib();
@@ -15,7 +15,7 @@ namespace RandomBuffsMod
         int cooldown = 0;
 
         //get a random buff ID
-        public int randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
+        public static int randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
 
         //run after the world has been updated every tick
         public override void PostUpdateWorld()
@@ -41,18 +41,25 @@ namespace RandomBuffsMod
                 {
                     //decrease the cooldown
                     cooldown--;
-                    Console.WriteLine(cooldown);
+                    //Console.WriteLine(cooldown);
                 }
                 else
                 {
                     //get a random buff
                     randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
+                    Console.WriteLine(randomBuffID.ToString());
 
                     foreach (Player plr in Main.player)
                     {
+                        ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                        packet.Write(randomBuffID);
+                        packet.Send();
+
                         //give the player the random buff
                         NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, ff.TimeToTick(5));
                     }
+
+                    //reset the cooldown
                     cooldown = cooldownMax;
                 }
             }

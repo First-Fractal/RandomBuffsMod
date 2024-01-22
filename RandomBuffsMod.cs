@@ -6,10 +6,7 @@ namespace RandomBuffsMod
 {
 	public class RandomBuffsMod : Mod
 	{
-        //define the utilities classes
-        static FFLib ff = new FFLib();
-
-        //tell the mod what to do when it reccive a packet
+        //tell the mod what to do when it reccive the packet for the random buff id
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             RBMPlayer PBMPlayer = Main.CurrentPlayer.GetModPlayer<RBMPlayer>();

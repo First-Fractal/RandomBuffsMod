@@ -7,50 +7,70 @@ namespace RandomBuffsMod
 {
     internal class RBMSystem : ModSystem
     {
-        //define the utilities class
+        //my libary class
         static FFLib ff = new FFLib();
 
-        //variables to keep track of the cooldown
-        public static int cooldownMax = ff.TimeToTick(5, 0);
-        public static int cooldown = 0;
+        //track the cooldown for the random biff
+        static int cooldownMax = ff.TimeToTick(5);
+        static int cooldown = cooldownMax;
 
-        //global variable to track what buff was given by RNG 
-        public int randomBuffID = 0;
+        //get a random buff ID
+        public static int randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
 
+        //run after the world has been updated every tick
         public override void PostUpdateWorld()
         {
-            //if the cooldown is not at zero, then subtract it slowly
-            if (cooldown > 0)
-            {
-                cooldown -= 1;
-                //Console.WriteLine(cooldown);
-            } else
-            {
-                //set a random buff ID
-                randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
+            //flag to track if someone is active in the world
+            bool activePlayer = false;
 
-                //reset the timer
-                cooldown = cooldownMax;
+            //iter through each player to see if someone is active
+            foreach(Player player in Main.player)
+            {
+                if (player.active == true)
+                {
+                    activePlayer = true;
+                    break;
+                }
             }
 
-            //check if the player is in singleplayer, or in multiplayer
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            //if a player is active, then start the cooldown
+            if (activePlayer)
             {
-                //if the player is in multiplayer, then tell the player that its time for a random buff and what it is
-                ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
-                packet.Write(randomBuffID);
-                packet.Send();
-            } else
-            {
-                //loop through each player in the world
-                foreach (Player player in Main.player)
+                //is the cooldown done yet
+                if (cooldown > 0)
                 {
-                    //check if the player is active, not dead
-                    if (!player.dead && player.active)
-                    {
-                        //give the singleplayer the buff
-                        player.AddBuff(randomBuffID, 2, false);
-                    }
+                    //decrease the cooldown
+                    cooldown--;
+                    //Console.WriteLine(cooldown);
+                }
+                else
+                {
+                    //get a random buff
+                    randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount - 1);
+
+                    //reset the cooldown
+                    cooldown = cooldownMax;
+                    
+                }
+            }
+
+            //get each player in the server
+            foreach (Player plr in Main.player)
+            {
+                //cehck to see if it's singleplayer
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    //send the current random buff id to the current player
+                    ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                    packet.Write(randomBuffID);
+                    packet.Send();
+
+                    //give the player the random buff
+                    NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
+                } else
+                {
+                    //send the buff to the only player in singleplayer
+                    plr.AddBuff(randomBuffID, cooldown);
                 }
             }
 

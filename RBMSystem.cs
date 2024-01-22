@@ -47,26 +47,26 @@ namespace RandomBuffsMod
                 {
                     //get a random buff
                     randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
-                    Console.WriteLine(randomBuffID.ToString());
-
-                    //get each player in the server
-                    foreach (Player plr in Main.player)
-                    {
-                        //send the current random buff id to the current player
-                        ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
-                        packet.Write(randomBuffID);
-                        packet.Send();
-
-                        //give the player the random buff
-                        NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, ff.TimeToTick(5));
-                    }
 
                     //reset the cooldown
                     cooldown = cooldownMax;
+                    
                 }
             }
-            
 
+            //get each player in the server
+            foreach (Player plr in Main.player)
+            {
+                //send the current random buff id to the current player
+                ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                packet.Write(randomBuffID);
+                packet.Send();
+
+                //give the player the random buff
+                NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
+            }
+
+            //do the vanilla updates
             base.PostUpdateWorld();
         }
     }

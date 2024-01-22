@@ -57,13 +57,21 @@ namespace RandomBuffsMod
             //get each player in the server
             foreach (Player plr in Main.player)
             {
-                //send the current random buff id to the current player
-                ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
-                packet.Write(randomBuffID);
-                packet.Send();
+                //cehck to see if it's singleplayer
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    //send the current random buff id to the current player
+                    ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                    packet.Write(randomBuffID);
+                    packet.Send();
 
-                //give the player the random buff
-                NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
+                    //give the player the random buff
+                    NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
+                } else
+                {
+                    //send the buff to the only player in singleplayer
+                    plr.AddBuff(randomBuffID, cooldown);
+                }
             }
 
             //do the vanilla updates

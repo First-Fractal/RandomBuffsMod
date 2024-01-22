@@ -11,8 +11,8 @@ namespace RandomBuffsMod
         static FFLib ff = new FFLib();
 
         //track the cooldown for the random biff
-        int cooldownMax = ff.TimeToTick(5);
-        int cooldown = 0;
+        static int cooldownMax = ff.TimeToTick(5);
+        static int cooldown = cooldownMax;
 
         //get a random buff ID
         public static int randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
@@ -46,7 +46,7 @@ namespace RandomBuffsMod
                 else
                 {
                     //get a random buff
-                    randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount);
+                    randomBuffID = Main.rand.Next(1, BuffLoader.BuffCount - 1);
 
                     //reset the cooldown
                     cooldown = cooldownMax;

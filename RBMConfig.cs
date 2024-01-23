@@ -6,19 +6,27 @@ using Terraria.ModLoader.Config;
 
 namespace RandomBuffsMod
 {
+    //modded class that is for allowed the mod to be configable
     internal class RBMConfig : ModConfig
     {
+        //tell the mod that the configs are on the server and logistical side of the mod. 
         public override ConfigScope Mode => ConfigScope.ServerSide;
+
+        //define the instance for the mod
         public static RBMConfig Instance;
 
+        //display the general options line 
         [Header("$Mods.RandomBossSizes.Config.Header.GeneralOptions")]
 
+        //define the defualt config value for buff duration
         [DefaultValue(60)]
         public int buffDuration;
 
+        //define the defualt config value allowing only one buff
         [DefaultValue(true)]
         public bool onlyOneBuff;
 
+        //define the defualt config value for supporting modded buffs
         [DefaultValue(true)]
         public bool includeModdedBuffs;
 
@@ -34,6 +42,7 @@ namespace RandomBuffsMod
         //[DefaultValue(true)]
         //public bool includeSummons;
 
+        //function for populated the allowed buff list
         public void updateAllowedBuffs()
         {
             //clear the list
@@ -81,6 +90,7 @@ namespace RandomBuffsMod
 
             Console.WriteLine("The allowed buff list is " + RBMSystem.allowedBuffs.Count + " while the buffLen is " + RBMSystem.buffLen);
         }
+
 
         public override void OnLoaded()
         {

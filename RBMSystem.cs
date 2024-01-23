@@ -16,8 +16,8 @@ namespace RandomBuffsMod
 
         //get a random buff ID
         public static int randomBuffID = 1;
-
-        public static int buffLen = ModContent.GetContent<ModBuff>().Count();
+        
+        //make a list of allowed buffs
         public static List<int> allowedBuffs = new List<int>();
 
         //run after the world has been updated every tick
@@ -58,12 +58,15 @@ namespace RandomBuffsMod
                 else
                 {
                     //get a random buff
-                    randomBuffID = Main.rand.Next(1, allowedBuffs.Count);
-                    Console.WriteLine(randomBuffID);
+                    randomBuffID = Main.rand.Next(0, allowedBuffs.Count - 1);
+
+                    //clamp the random buff id just in case
+                    randomBuffID = Math.Clamp(randomBuffID, 0, allowedBuffs.Count -1);
+
+                    //Console.WriteLine(randomBuffID);
 
                     //reset the cooldown
                     cooldown = cooldownMax;
-                    
                 }
             }
 
@@ -82,6 +85,7 @@ namespace RandomBuffsMod
                     NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
                 } else
                 {
+                    //give the single player a random buff
                     plr.AddBuff(randomBuffID, cooldown);
 
                 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader.Config;
+using Terraria.ModLoader;
 
 namespace RandomBuffsMod
 {
@@ -49,7 +50,7 @@ namespace RandomBuffsMod
             RBMSystem.allowedBuffs = new List<int>();
 
             //get a list of all buffs loaded
-            for (int i = 0; i <= RBMSystem.buffLen; i++)
+            for (int i = 0; i <= BuffLoader.BuffCount; i++)
             {
                 //check if the list should not include modded buffs
                 if (!Instance.includeModdedBuffs)
@@ -88,16 +89,18 @@ namespace RandomBuffsMod
                 RBMSystem.allowedBuffs.Add(i);
             }
 
-            Console.WriteLine("The allowed buff list is " + RBMSystem.allowedBuffs.Count + " while the buffLen is " + RBMSystem.buffLen);
+            Console.WriteLine("The allowed buff list is " + RBMSystem.allowedBuffs.Count);
         }
 
 
+        //update the allow buff list when the mod is loaded
         public override void OnLoaded()
         {
             updateAllowedBuffs();
             base.OnLoaded();
         }
 
+        //update the allow buff list when the config has been changed
         public override void OnChanged()
         {
             updateAllowedBuffs();

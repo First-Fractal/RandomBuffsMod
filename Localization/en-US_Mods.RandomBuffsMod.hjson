@@ -1,7 +1,6 @@
 Configs: {
-	Header: {
-		GeneralOptions: "General Options:"
-	}
+	Header.GeneralOptions: General Options:
+
 	RBMConfig: {
 		DisplayName: Random (De)Buffs Mod Config
 

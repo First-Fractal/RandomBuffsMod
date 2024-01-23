@@ -29,6 +29,11 @@ Configs: {
 			Tooltip: Should the mod included pet buffs?
 		}
 
+		includeMinecart: {
+			Label: Include Minecarts
+			Tooltip: Should the mod included minecart buffs?
+		}
+
 		includeMount: {
 			Label: Include Mounts
 			Tooltip: Should the mod included mount buffs?
@@ -37,6 +42,11 @@ Configs: {
 		includeSummons: {
 			Label: Include Summons
 			Tooltip: Should the mod included summons buffs?
+		}
+
+		includeMounts: {
+			Label: include Mounts
+			Tooltip: ""
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader;
@@ -31,14 +32,17 @@ namespace RandomBuffsMod
         [DefaultValue(true)]
         public bool includeModdedBuffs;
 
-        //[DefaultValue(true)]
-        //public bool includeDebuffs;
+        [DefaultValue(true)]
+        public bool includeDebuffs;
+
+        [DefaultValue(true)]
+        public bool includePets;
+
+        [DefaultValue(true)]
+        public bool includeMinecart;
 
         //[DefaultValue(true)]
-        //public bool includeMount;
-
-        //[DefaultValue(true)]
-        //public bool includePets;
+        //public bool includeMounts;
 
         //[DefaultValue(true)]
         //public bool includeSummons;
@@ -50,7 +54,7 @@ namespace RandomBuffsMod
             RBMSystem.allowedBuffs = new List<int>();
 
             //get a list of all buffs loaded
-            for (int i = 0; i <= BuffLoader.BuffCount; i++)
+            for (int i = 0; i <= BuffLoader.BuffCount -1; i++)
             {
                 //check if the list should not include modded buffs
                 if (!Instance.includeModdedBuffs)
@@ -62,34 +66,45 @@ namespace RandomBuffsMod
                     }
                 }
 
-                ////check if the list should not include debuff
-                //if (!Instance.includeDebuffs)
-                //{
-                //    //this piece of shit is not working, and idk why
-                //    //if the current buffid is a debuff, then ignore it
-                //    if (Main.debuff[i] == true || BuffID.Sets.NurseCannotRemoveDebuff[i] == true)
-                //    {
-                //        Console.WriteLine("I've skip a buff with the ID: " + i + " cause it's a debuff");
-                //        continue;
-                //    }
-                //}
+                //check if the list should not include debuff
+                if (!Instance.includeDebuffs)
+                {
+                    //if the current buffID is a debuff, then ignore it
+                    if (Main.debuff[i] == true || Main.pvpBuff[i] == true)
+                    {
+                        Console.WriteLine("I've skip a buff with the ID: " + i + " cause it's a debuff");
+                        continue;
+                    }
+                }
 
-                ////check if the list should not include pets
-                //if (!Instance.includePets)
-                //{
-                //    //if the current buffid is a pet, then ignore it
-                //    if (Main.vanityPet[i] == true)
-                //    {
-                //        Console.WriteLine("I've skip a buff with the ID: " + i + " cause it's a pet");
-                //        continue;
-                //    }
-                //}
+                //check if the list should not include pets
+                if (!Instance.includePets)
+                {
+                    //if the current buffid is a pet, then ignore it
+                    if (Main.vanityPet[i] == true || Main.lightPet[i] == true)
+                    {
+                        continue;
+                    }
+                }
+
+                //check if the list should not include minecarts
+                if (!Instance.includeMinecart)
+                {
+                    //if the current buffid is a minecart, then ignore it
+                    if (BuffID.Sets.BasicMountData[i] != null)
+                    {
+                        continue;
+                    }
+                }
+
+                
 
                 //add the current buff ID to the list
                 RBMSystem.allowedBuffs.Add(i);
             }
 
             Console.WriteLine("The allowed buff list is " + RBMSystem.allowedBuffs.Count);
+            //Console.WriteLine("This is the full list: " + RBMSystem.allowedBuffs.ToString());
         }
 
 

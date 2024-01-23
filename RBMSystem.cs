@@ -63,6 +63,11 @@ namespace RandomBuffsMod
                     //clamp the random buff id just in case
                     randomBuffID = Math.Clamp(randomBuffID, 0, allowedBuffs.Count -1);
 
+                    //grab the random buff from the allowed list
+                    randomBuffID = allowedBuffs[randomBuffID];
+
+                    Console.WriteLine("The random buff ID is " + randomBuffID);
+
                     //Console.WriteLine(randomBuffID);
 
                     //reset the cooldown
@@ -87,7 +92,6 @@ namespace RandomBuffsMod
                 {
                     //give the single player a random buff
                     plr.AddBuff(randomBuffID, cooldown);
-
                 }
             }
 

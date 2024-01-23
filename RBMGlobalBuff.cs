@@ -22,10 +22,10 @@ namespace RandomBuffsMod
 
             //put the timer on all debuffs
             Array.Fill(Main.buffNoTimeDisplay, false);
-            Main.vanityPet[type] = false;
+            //Array.Fill(Main.vanityPet, false);
 
-            //if the current buff not the player buff, then remove it
-            if (type != player.GetModPlayer<RBMPlayer>().randomBuffID)
+            //if the player only wants one buff and the current buff not the player buff, then remove it
+            if (RBMConfig.Instance.onlyOneBuff && type != player.GetModPlayer<RBMPlayer>().randomBuffID)
             {
                 player.ClearBuff(type);
             }

@@ -1,1 +1,40 @@
+Configs: {
+	RBMConfig: {
+		DisplayName: Random (De)Buffs Mod Config
 
+		buffDuration: {
+			Label: Buff Duration
+			Tooltip: How long should the buffs last, in seconds?
+		}
+
+		onlyOneBuff: {
+			Label: Only One Buff?
+			Tooltip: If true, then the mod will remove all buff that wasn't provided by the random buff.
+		}
+
+		includeModdedBuffs: {
+			Label: Include Modded Buffs?
+			Tooltip: Should the mod included modded buffs?
+		}
+
+		includeDebuffs: {
+			Label: Include Debuffs
+			Tooltip: Should the mod included debuffs?
+		}
+
+		includePets: {
+			Label: Include Pets
+			Tooltip: Should the mod included pet buffs?
+		}
+
+		includeMount: {
+			Label: Include Mounts
+			Tooltip: Should the mod included mount buffs?
+		}
+
+		includeSummons: {
+			Label: Include Summons
+			Tooltip: Should the mod included summons buffs?
+		}
+	}
+}

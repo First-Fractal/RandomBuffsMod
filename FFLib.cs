@@ -10,7 +10,7 @@ namespace RandomBuffsMod
     public class FFLib
     {
         //function that will convert human time to terraria ticks
-        public int TimeToTick(int secs = 0, int mins = 0, int hours = 0, int days = 0)
+        public static int TimeToTick(int secs = 0, int mins = 0, int hours = 0, int days = 0)
         {
             //define the units
             int sec = 60;
@@ -23,9 +23,9 @@ namespace RandomBuffsMod
         }
 
         //list of all the boss parts
-        public int[] BossParts = { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail, NPCID.Creeper, NPCID.SkeletronHand, NPCID.SkeletronHead, NPCID.WallofFleshEye, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, NPCID.Probe, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, NPCID.PlanterasHook, NPCID.PlanterasTentacle, NPCID.GolemFistLeft, NPCID.GolemFistRight, NPCID.GolemHead, NPCID.GolemHeadFree, NPCID.CultistBossClone, NPCID.MoonLordCore, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye, NPCID.MoonLordLeechBlob };
+        public static int[] BossParts = { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail, NPCID.Creeper, NPCID.SkeletronHand, NPCID.SkeletronHead, NPCID.WallofFleshEye, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, NPCID.Probe, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, NPCID.PlanterasHook, NPCID.PlanterasTentacle, NPCID.GolemFistLeft, NPCID.GolemFistRight, NPCID.GolemHead, NPCID.GolemHeadFree, NPCID.CultistBossClone, NPCID.MoonLordCore, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye, NPCID.MoonLordLeechBlob };
 
-        public void Talk(string message, Color color)
+        public static void Talk(string message, Color color)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
@@ -38,7 +38,7 @@ namespace RandomBuffsMod
         }
 
         //function for checking if a boss is currently alive
-        public bool IsBossAlive()
+        public static bool IsBossAlive()
         {
             foreach(NPC npc in Main.npc)
             {

@@ -33,5 +33,18 @@ namespace RandomBuffsMod
             //do vanilla functions
             base.Update(type, player, ref buffIndex);
         }
+
+        public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
+        {
+            string buffSource = "Vanilla";
+
+            if (type > BuffID.Count)
+            {
+                buffSource = "Modded";
+            }
+            tip += "\n[" + buffSource + " Buff]";
+
+            base.ModifyBuffText(type, ref buffName, ref tip, ref rare);
+        }
     }
 }

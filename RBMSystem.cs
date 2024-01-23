@@ -66,10 +66,6 @@ namespace RandomBuffsMod
                     //grab the random buff from the allowed list
                     randomBuffID = allowedBuffs[randomBuffID];
 
-                    Console.WriteLine("The random buff ID is " + randomBuffID);
-
-                    //Console.WriteLine(randomBuffID);
-
                     //reset the cooldown
                     cooldown = cooldownMax;
                 }
@@ -78,20 +74,28 @@ namespace RandomBuffsMod
             //get each player in the server
             foreach (Player plr in Main.player)
             {
-                //cehck to see if it's singleplayer
-                if (Main.netMode != NetmodeID.SinglePlayer)
+                //check if the player is active and don't give the buff if the player is dead
+                if (plr.active && !plr.dead)
                 {
-                    //send the current random buff id to the current player
-                    ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
-                    packet.Write(randomBuffID);
-                    packet.Send();
+                    //cehck to see if it's singleplayer
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        //send the current random buff id to the current player
+                        ModPacket packet = ModContent.GetInstance<RandomBuffsMod>().GetPacket();
+                        packet.Write(randomBuffID);
+                        packet.Send();
 
-                    //give the player the random buff
-                    NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
-                } else
-                {
-                    //give the single player a random buff
-                    plr.AddBuff(randomBuffID, cooldown);
+                        //give the player the random buff
+                        NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null, plr.whoAmI, randomBuffID, cooldown);
+                    }
+                    else
+                    {
+                        //give the single player a random buff
+                        plr.AddBuff(randomBuffID, cooldown);
+
+                        //save the random buff id for the players for future refences
+                        plr.GetModPlayer<RBMPlayer>().randomBuffID = randomBuffID;
+                    }
                 }
             }
 

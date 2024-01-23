@@ -21,31 +21,28 @@ namespace RandomBuffsMod
         [Header("$Mods.RandomBossSizes.Config.Header.GeneralOptions")]
 
         //define the defualt config value for buff duration
-        [DefaultValue(60)]
+        [DefaultValue(120)]
         public int buffDuration;
 
         //define the defualt config value allowing only one buff
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool onlyOneBuff;
 
         //define the defualt config value for supporting modded buffs
         [DefaultValue(true)]
         public bool includeModdedBuffs;
 
+        //define the defualt config value for allowing debuffs
         [DefaultValue(true)]
         public bool includeDebuffs;
 
+        //define the defualt config value for allowing pets
         [DefaultValue(true)]
         public bool includePets;
 
+        //define the defualt config value for allowing minecart
         [DefaultValue(true)]
         public bool includeMinecart;
-
-        //[DefaultValue(true)]
-        //public bool includeMounts;
-
-        //[DefaultValue(true)]
-        //public bool includeSummons;
 
         //function for populated the allowed buff list
         public void updateAllowedBuffs()
@@ -97,16 +94,10 @@ namespace RandomBuffsMod
                     }
                 }
 
-                
-
                 //add the current buff ID to the list
                 RBMSystem.allowedBuffs.Add(i);
             }
-
-            Console.WriteLine("The allowed buff list is " + RBMSystem.allowedBuffs.Count);
-            //Console.WriteLine("This is the full list: " + RBMSystem.allowedBuffs.ToString());
         }
-
 
         //update the allow buff list when the mod is loaded
         public override void OnLoaded()

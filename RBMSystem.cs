@@ -58,10 +58,10 @@ namespace RandomBuffsMod
                 else
                 {
                     //get a random buff
-                    randomBuffID = Main.rand.Next(0, allowedBuffs.Count - 1);
+                    randomBuffID = Main.rand.Next(1, allowedBuffs.Count - 1);
 
                     //clamp the random buff id just in case
-                    randomBuffID = Math.Clamp(randomBuffID, 0, allowedBuffs.Count -1);
+                    randomBuffID = Math.Clamp(randomBuffID, 1, allowedBuffs.Count -1);
 
                     //grab the random buff from the allowed list
                     randomBuffID = allowedBuffs[randomBuffID];

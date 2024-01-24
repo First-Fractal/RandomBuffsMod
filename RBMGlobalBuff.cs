@@ -27,10 +27,17 @@ namespace RandomBuffsMod
             //if the player only wants one buff and the current buff not the player buff, then remove it
             if (RBMConfig.Instance.onlyOneBuff && type != player.GetModPlayer<RBMPlayer>().randomBuffID)
             {
-                //don't get rid of potion and mana sickness
-                if (type != BuffID.PotionSickness && type != BuffID.ManaSickness) 
+                //if the player dosent wants potion and mana sickness, then remove it
+                if (!RBMConfig.Instance.includePotionAndManaSickness) 
                 { 
                     player.ClearBuff(type);
+                } else
+                {
+                    //player wants potion and mana sickness, then don't remove them
+                    if (type != BuffID.PotionSickness && type != BuffID.ManaSickness)
+                    {
+                        player.ClearBuff(type);
+                    }
                 }
             }
 

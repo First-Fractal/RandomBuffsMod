@@ -18,7 +18,7 @@ namespace RandomBuffsMod
         public static RBMConfig Instance;
 
         //display the general options line 
-        [Header("$Mods.RandomBossSizes.Config.Header.GeneralOptions")]
+        [Header("$Mods.RandomBuffsMod.Configs.Header.GeneralOptions")]
 
         //define the defualt config value for buff duration
         [DefaultValue(120)]
@@ -32,6 +32,8 @@ namespace RandomBuffsMod
         [DefaultValue(true)]
         public bool includeModdedBuffs;
 
+        [Header("$Mods.RandomBuffsMod.Configs.Header.AllowedBuffsOptions")]
+
         //define the defualt config value for allowing debuffs
         [DefaultValue(true)]
         public bool includeDebuffs;
@@ -43,6 +45,10 @@ namespace RandomBuffsMod
         //define the defualt config value for allowing minecart
         [DefaultValue(true)]
         public bool includeMinecart;
+
+        //define the defualt config value for allowing potion and mana sickness
+        [DefaultValue(false)]
+        public bool includePotionAndManaSickness;
 
         //function for populated the allowed buff list
         public void updateAllowedBuffs()

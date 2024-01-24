@@ -1,5 +1,8 @@
 Configs: {
-	Header.GeneralOptions: General Options:
+	Header: {
+		GeneralOptions: General Options:
+		AllowedBuffsOptions: Customize Buffs to allowed to be randomly picked:
+	}
 
 	RBMConfig: {
 		DisplayName: Random (De)Buffs Mod Config
@@ -20,33 +23,23 @@ Configs: {
 		}
 
 		includeDebuffs: {
-			Label: Include Debuffs
+			Label: Include Debuffs?
 			Tooltip: Should the mod included debuffs?
 		}
 
 		includePets: {
-			Label: Include Pets
+			Label: Include Pets?
 			Tooltip: Should the mod included pet buffs?
 		}
 
 		includeMinecart: {
-			Label: Include Minecarts
+			Label: Include Minecarts?
 			Tooltip: Should the mod included minecart buffs?
 		}
 
-		includeMount: {
-			Label: Include Mounts
-			Tooltip: Should the mod included mount buffs?
-		}
-
-		includeSummons: {
-			Label: Include Summons
-			Tooltip: Should the mod included summons buffs?
-		}
-
-		includeMounts: {
-			Label: include Mounts
-			Tooltip: ""
+		includePotionAndManaSickness: {
+			Label: Include Potion And Mana Sickness?
+			Tooltip: Should the mod included potion and mana sickness buffs?
 		}
 	}
 }

@@ -1,1 +1,7 @@
-Random (De)buffs Mod is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Random (De)buffs Mod is a mod that will randomly give all players a random buff or debuff, depending on your luck.
+Every 120 seconds the mod will give all players the same (de)buff.
+The timing can be configured, as well as if it should only allow one buff, use modded buffs if any is active, use debuffs, use pet buffs, and minecart buffs.
+
+Credit to u/smoldootdootart on reddit for the dice in the icon: https://www.reddit.com/r/PixelArt/comments/i3rh9w/dice/
+
+v 1.0: Released the mod.

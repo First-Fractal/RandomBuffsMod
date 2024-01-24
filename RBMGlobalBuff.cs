@@ -42,7 +42,8 @@ namespace RandomBuffsMod
             {
                 buffSource = "Modded";
             }
-            tip += "\n[" + buffSource + " Buff]";
+            string buff = "(" + buffSource + " Buff)";
+            tip += "\n[c/327DFF:" + buff + "]";
 
             base.ModifyBuffText(type, ref buffName, ref tip, ref rare);
         }

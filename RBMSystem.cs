@@ -69,7 +69,7 @@ namespace RandomBuffsMod
                     cooldown = cooldownMax;
 
                     //tell the players about the new buff
-                    FFLib.Talk(Language.GetTextValue("Mods.RandomBuffsMod.Message"), Color.OrangeRed);
+                    FFLib.Talk(Language.GetTextValue("Mods.RandomBuffsMod.Message"), Color.Aqua);
                 }
             }
 

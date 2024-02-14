@@ -1,10 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using Terraria.ModLoader;
 
 namespace RandomBuffsMod
 {
@@ -49,74 +44,5 @@ namespace RandomBuffsMod
         //define the defualt config value for allowing potion and mana sickness
         [DefaultValue(false)]
         public bool includePotionAndManaSickness;
-
-        //function for populated the allowed buff list
-        public void updateAllowedBuffs()
-        {
-            //clear the list
-            RBMSystem.allowedBuffs = new List<int>();
-
-            //get a list of all buffs loaded
-            for (int i = 0; i <= BuffLoader.BuffCount -1; i++)
-            {
-                //check if the list should not include modded buffs
-                if (!Instance.includeModdedBuffs)
-                {
-                    //if the current buffid is outside the vanilla range, then ignore it
-                    if (i > BuffID.Count)
-                    {
-                        continue;
-                    }
-                }
-
-                //check if the list should not include debuff
-                if (!Instance.includeDebuffs)
-                {
-                    //if the current buffID is a debuff, then ignore it
-                    if (Main.debuff[i] == true || Main.pvpBuff[i] == true)
-                    {
-                        Console.WriteLine("I've skip a buff with the ID: " + i + " cause it's a debuff");
-                        continue;
-                    }
-                }
-
-                //check if the list should not include pets
-                if (!Instance.includePets)
-                {
-                    //if the current buffid is a pet, then ignore it
-                    if (Main.vanityPet[i] == true || Main.lightPet[i] == true)
-                    {
-                        continue;
-                    }
-                }
-
-                //check if the list should not include minecarts
-                if (!Instance.includeMinecart)
-                {
-                    //if the current buffid is a minecart, then ignore it
-                    if (BuffID.Sets.BasicMountData[i] != null)
-                    {
-                        continue;
-                    }
-                }
-
-                //add the current buff ID to the list
-                RBMSystem.allowedBuffs.Add(i);
-            }
-        }
-
-        //update the allow buff list when the mod is loaded
-        public override void OnLoaded()
-        {
-            updateAllowedBuffs();
-            base.OnLoaded();
-        }
-
-        //update the allow buff list when the config has been changed
-        public override void OnChanged()
-        {
-            updateAllowedBuffs();
-            base.OnChanged();
-        }
     }
 }

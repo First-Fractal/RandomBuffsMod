@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RandomBuffsMod
@@ -53,7 +53,6 @@ namespace RandomBuffsMod
                 {
                     //decrease the cooldown
                     cooldown--;
-                    //Console.WriteLine(cooldown);
                 }
                 else
                 {
@@ -68,6 +67,9 @@ namespace RandomBuffsMod
 
                     //reset the cooldown
                     cooldown = cooldownMax;
+
+                    //tell the players about the new buff
+                    FFLib.Talk(Language.GetTextValue("Mods.RandomBuffsMod.Message"), Color.OrangeRed);
                 }
             }
 
@@ -101,6 +103,64 @@ namespace RandomBuffsMod
 
             //do the vanilla updates
             base.PostUpdateWorld();
+        }
+
+        //update the list every second to match the config
+        public override void PreUpdateWorld()
+        {
+            if (cooldown % FFLib.TimeToTick(1) != 0)
+                return;
+
+            //clear the list
+            allowedBuffs = new List<int>();
+
+            //get a list of all buffs loaded
+            for (int i = 0; i <= BuffLoader.BuffCount - 1; i++)
+            {
+                //check if the list should not include modded buffs
+                if (!RBMConfig.Instance.includeModdedBuffs)
+                {
+                    //if the current buff id is outside the vanilla range, then ignore it
+                    if (i > BuffID.Count)
+                    {
+                        continue;
+                    }
+                }
+
+                //check if the list should not include debuff
+                if (!RBMConfig.Instance.includeDebuffs)
+                {
+                    //if the current buffID is a debuff, then ignore it
+                    if (Main.debuff[i] == true || Main.pvpBuff[i] == true)
+                    {
+                        continue;
+                    }
+                }
+
+                //check if the list should not include pets
+                if (!RBMConfig.Instance.includePets)
+                {
+                    //if the current buffid is a pet, then ignore it
+                    if (Main.vanityPet[i] == true || Main.lightPet[i] == true)
+                    {
+                        continue;
+                    }
+                }
+
+                //check if the list should not include minecarts
+                if (!RBMConfig.Instance.includeMinecart)
+                {
+                    //if the current buffid is a minecart, then ignore it
+                    if (BuffID.Sets.BasicMountData[i] != null)
+                    {
+                        continue;
+                    }
+                }
+
+                //add the current buff ID to the list
+                allowedBuffs.Add(i);
+            }
+            base.PreUpdateWorld();
         }
     }
 }

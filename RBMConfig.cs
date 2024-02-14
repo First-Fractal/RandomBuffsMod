@@ -42,7 +42,7 @@ namespace RandomBuffsMod
         public bool includeMinecart;
 
         //define the defualt config value for allowing potion and mana sickness
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool includePotionAndManaSickness;
     }
 }

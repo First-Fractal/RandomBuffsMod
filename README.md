@@ -10,7 +10,4 @@ The timing can be configured, as well as if it should only allow one buff, use m
 u/smoldootdootart on reddit for the dice in the icon: https://www.reddit.com/r/PixelArt/comments/i3rh9w/dice/
 
 # Change Log
-v.1.3: added a "duct tape" method of forcing Empress of Light to not despawn, and a fix some spelling mistakes that I missed cause I'm blind.
-v 1.2: Removed an npc that was falsely labed as a boss part. 
-v 1.1: Fixed a bug where the boss parts were not affected by adrenaline. 
 v 1.0: Relased the mod.
